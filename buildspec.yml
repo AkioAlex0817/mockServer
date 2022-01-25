@@ -1,0 +1,30 @@
+version: 0.2
+
+env:
+  secrets-manager:
+    DEV_SOLCHICK_SERVICE_ACCOUNT_PRI_ON_SOL: DEV_SOLCHICK_SERVICE_ACCOUNT_PRI:SOLCHICK_SERVICE_ACCOUNT_PRI_ON_SOL
+    DEV_SOLCHICK_SERVICE_ACCOUNT_PRI_ON_BSC: DEV_SOLCHICK_SERVICE_ACCOUNT_PRI:SOLCHICK_SERVICE_ACCOUNT_PRI_ON_BSC
+    DEV_SOLCHICK_SERVICE_ACCOUNT_PRI_ON_ETH: DEV_SOLCHICK_SERVICE_ACCOUNT_PRI:SOLCHICK_SERVICE_ACCOUNT_PRI_ON_ETH
+    PROD_SOLCHICK_SERVICE_ACCOUNT_PRI_ON_SOL: PROD_SOLCHICK_SERVICE_ACCOUNT_PRI:SOLCHICK_SERVICE_ACCOUNT_PRI_ON_SOL
+    PROD_SOLCHICK_SERVICE_ACCOUNT_PRI_ON_BSC: PROD_SOLCHICK_SERVICE_ACCOUNT_PRI:SOLCHICK_SERVICE_ACCOUNT_PRI_ON_BSC
+    PROD_SOLCHICK_SERVICE_ACCOUNT_PRI_ON_ETH: PROD_SOLCHICK_SERVICE_ACCOUNT_PRI:SOLCHICK_SERVICE_ACCOUNT_PRI_ON_ETH
+
+phases:
+  build:
+    commands:
+      - chmod 775 ./scripts/eb_config.sh
+      - |
+        if [ $CB_ENVIRONMENT = "staging" ]; then
+          ./scripts/eb_config.sh -e ${CB_ENVIRONMENT} -s ${DEV_SOLCHICK_SERVICE_ACCOUNT_PRI_ON_SOL} -b ${DEV_SOLCHICK_SERVICE_ACCOUNT_PRI_ON_BSC} -c ${DEV_SOLCHICK_SERVICE_ACCOUNT_PRI_ON_ETH}
+          mv -v ./.ebextensions/dev-alb-http-to-https-redirection-full.config ./.ebextensions/alb-http-to-https-redirection-full.config
+        fi
+      - |
+        if [ $CB_ENVIRONMENT = "production" ]; then
+          ./scripts/eb_config.sh -e ${CB_ENVIRONMENT} -s ${PROD_SOLCHICK_SERVICE_ACCOUNT_PRI_ON_SOL} -b ${PROD_SOLCHICK_SERVICE_ACCOUNT_PRI_ON_BSC} -c ${PROD_SOLCHICK_SERVICE_ACCOUNT_PRI_ON_ETH}
+          mv -v ./.ebextensions/live-alb-http-to-https-redirection-full.config ./.ebextensions/alb-http-to-https-redirection-full.config
+        fi
+      - rm -fv ./.ebextensions/dev-alb-http-to-https-redirection-full.config
+      - rm -fv ./.ebextensions/live-alb-http-to-https-redirection-full.config
+artifacts:
+  files:
+    - '**/*'
