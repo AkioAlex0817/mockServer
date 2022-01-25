@@ -31,6 +31,10 @@ router.get('/user-groups/:id', home.getGroupOne);
 router.get('/disposal-facilities', home.getDisposals);
 
 
+//Courses
+router.get('/courses/:id/contracts', home.getCourseContracts);
+
+
 
 
 

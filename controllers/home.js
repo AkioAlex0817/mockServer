@@ -1003,6 +1003,91 @@ async function collectionPatch(req, res) {
     });
 }
 
+async function getCourseContracts(req, res){
+    await sleep(1000);
+    res.json({
+        "message": "success",
+        "data": [
+            {
+                "id": 3,
+                "parentContractId": null,
+                "serialNumber": 2,
+                "status": "3",
+                "customerName": "Lila 高橋",
+                "address": "Melissa 伊藤",
+                "monCollectionFlg": "0",
+                "tueCollectionFlg": "1",
+                "wedCollectionFlg": "1",
+                "thuCollectionFlg": "1",
+                "friCollectionFlg": "0",
+                "satCollectionFlg": "1",
+                "weeklyNumber": 1
+            },
+            {
+                "id": 4,
+                "parentContractId": null,
+                "serialNumber": 2,
+                "status": "3",
+                "customerName": "Lila 高橋",
+                "address": "Melissa 伊藤",
+                "monCollectionFlg": "0",
+                "tueCollectionFlg": "1",
+                "wedCollectionFlg": "1",
+                "thuCollectionFlg": "1",
+                "friCollectionFlg": "0",
+                "satCollectionFlg": "1",
+                "weeklyNumber": 2
+            },
+            {
+                "id": 5,
+                "parentContractId": null,
+                "serialNumber": 2,
+                "status": "3",
+                "customerName": "Lila 高橋",
+                "address": "Melissa 伊藤",
+                "monCollectionFlg": "0",
+                "tueCollectionFlg": "1",
+                "wedCollectionFlg": "1",
+                "thuCollectionFlg": "1",
+                "friCollectionFlg": "0",
+                "satCollectionFlg": "1",
+                "weeklyNumber": 3
+            },
+            {
+                "id": 6,
+                "parentContractId": null,
+                "serialNumber": 2,
+                "status": "3",
+                "customerName": "Lila 高橋",
+                "address": "Melissa 伊藤",
+                "monCollectionFlg": "0",
+                "tueCollectionFlg": "1",
+                "wedCollectionFlg": "1",
+                "thuCollectionFlg": "1",
+                "friCollectionFlg": "0",
+                "satCollectionFlg": "1",
+                "weeklyNumber": 4
+            },
+            {
+                "id": 7,
+                "parentContractId": null,
+                "serialNumber": 2,
+                "status": "3",
+                "customerName": "Lila 高橋",
+                "address": "Melissa 伊藤",
+                "monCollectionFlg": "0",
+                "tueCollectionFlg": "1",
+                "wedCollectionFlg": "1",
+                "thuCollectionFlg": "1",
+                "friCollectionFlg": "0",
+                "satCollectionFlg": "1",
+                "weeklyNumber": 5
+            }
+        ],
+        "code": 200
+    });
+}
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -1022,4 +1107,5 @@ module.exports = {
     collectionPhotoReasonPatch,
     collectionPhotoRemove,
     collectionPatch,
+    getCourseContracts,
 };
